@@ -1,6 +1,7 @@
 package com.example.flixter
 
 import android.content.Context
+import android.content.res.Configuration
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,9 +18,24 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
         private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
         private val tvOverview = itemView.findViewById<TextView>(R.id.tvOverview)
         private val ivPoster = itemView.findViewById<ImageView>(R.id.ivPoster)
+
         fun bind(movie: Movie){
             tvTitle.text = movie.title
             tvOverview.text = movie.overview
+            /* Since we will be showing a different image if we change the orientation,
+             * we need to make a new variable to pass the url for the image we are using and
+            * do the implementation of choosing which of the two images to show else were.*/
+            val movieImagePath: String // declaring the variable
+            // logic to populate the movieImage variable
+            val orientation = context.resources.configuration.orientation
+            if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+                movieImagePath = movie.posterIMageURL
+                // ...
+            } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                movieImagePath = movie.backdropIMageURL
+                // ...
+            }
+
             Glide.with(context).load(movie.posterIMageURL).into(ivPoster)
         }
     }

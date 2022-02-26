@@ -8,12 +8,14 @@ import org.json.JSONArray
 data class Movie (
     val movieID: Int,
     private val posterPath: String,
+    private val backdropPath:String,
     val title: String,
     val overview: String,
     ){
     // Making sure we get the image size we want. Ideally one would see all the available sizes
-    // and pick the ideal one.
+    // and pick the ideal one. The sizes were hard coded in both cases.
     val posterIMageURL = "https://image.tmdb.org/t/p/w342/$posterPath"
+    val backdropIMageURL = "https://image.tmdb.org/t/p/w342/$backdropPath"
     /*Companion objects allows us to call class methods without having an instance,
     * in other words, it will allow us to have static functions in kotlin.
     * */
@@ -26,6 +28,7 @@ data class Movie (
                     Movie(
                         movieJson.getInt("id"),
                         movieJson.getString("poster_path"),
+                        movieJson.getString("backdrop_path"),
                         movieJson.getString("title"),
                         movieJson.getString("overview")
                     )
