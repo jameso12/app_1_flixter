@@ -27,7 +27,9 @@ Flix is an app that allows users to browse movies from the [The Movie Database A
 <img src="./walkthrough_stretch03.gif" width=250><br>
 
 ### Notes
-One of the challenges of building this app was getting the API requests to work. After trying multiple solutions found on the slack channel, the solution that ended up working was simply to make another emulator with API 30 i think. After the new emulator was created, the API calls worked just fine.
+One of the challenges of building this app was getting the API requests to work. After trying multiple solutions found on the slack channel, the solution that ended up working was simply to make another emulator with API 30 i think. After the new emulator was created, the API calls worked just fine. Another challenge of building this app was trying
+to piece together how to do the stretch goal ragarding the different oriantation of the device. This challange was especially cnfusing because I did not know how android
+studio handled different orientations(luckilly there was a resource on the course portal that helped me with this challenge).
 
 ### Open-source libraries used
 
