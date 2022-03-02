@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 /*
@@ -20,7 +22,7 @@ import com.bumptech.glide.Glide
 private const val TAG = "MovieAdapter"
 class MovieAdapter(private val context: Context, private val movies: List<Movie>):
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener{
         // Getting the child views from the parent view(parent view here is the item_movie)
         private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
         private val tvOverview = itemView.findViewById<TextView>(R.id.tvOverview)
@@ -30,6 +32,9 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
         * We will attach the a click listener here, makes sense since this function is the
         * one responsible for giving the view our code data/logic.
         * */
+        init {
+            itemView.setOnClickListener(this)
+        }
         fun bind(movie: Movie){
             tvTitle.text = movie.title
             tvOverview.text = movie.overview
@@ -50,6 +55,17 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
             }
 
             Glide.with(context).load(movieImagePath).into(ivPoster)
+        }
+
+        override fun onClick(v: View?) {
+            /*This click listener should:
+            * 1. Tell us the movie that was clicked.
+            * 2. Use the intent to navigate to the activity.
+            * */
+            // There is a method in the adapter that gets the adapter position.
+            val movie = movies[adapterPosition]
+            Toast.makeText(context, movie.title, LENGTH_SHORT).show() // TODO Toast not showing
+            Log.i("OnClick", "Movie clicked: ${movie.title}")
         }
     }
     // onBind is a cheap operation, just assigns data
