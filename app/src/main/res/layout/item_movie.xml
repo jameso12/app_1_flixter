@@ -23,8 +23,11 @@
         android:layout_marginEnd="8dp"
         android:ellipsize="end"
         android:maxLines="2"
+        android:shadowColor="#014851"
+
         android:text="Movie Title"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivPoster"
         app:layout_constraintTop_toTopOf="parent" />

@@ -1,6 +1,7 @@
 package com.example.flixter
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.bumptech.glide.Glide
 * An adapter that takes the parsed data and binds it to a view holder,
 * A view holder.
 * */
+const val MOVIE_EXTRA = "MOVIE_EXTRA"
 private const val TAG = "MovieAdapter"
 class MovieAdapter(private val context: Context, private val movies: List<Movie>):
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
@@ -64,8 +66,11 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
             * */
             // There is a method in the adapter that gets the adapter position.
             val movie = movies[adapterPosition]
-            Toast.makeText(context, movie.title, LENGTH_SHORT).show() // TODO Toast not showing
-            Log.i("OnClick", "Movie clicked: ${movie.title}")
+            Toast.makeText(context, movie.title, LENGTH_SHORT).show() // Toast not working un emu but it works on physical device.
+            Log.i("OnClick", "Movie clicked: ${movie.title}") // Logcat proves onClick works
+            val intent = Intent(context,DetailActivity::class.java) // Context we are on and activity destination
+            intent.putExtra(MOVIE_EXTRA,movie) // We make a Movie parceble to enable us to pas the entire object in this statement.
+            context.startActivity(intent) // Starts the intent
         }
     }
     // onBind is a cheap operation, just assigns data
