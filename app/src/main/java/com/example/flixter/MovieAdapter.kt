@@ -10,15 +10,26 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-
+/*
+* So, this one is a bit tricky, but here goes:
+* To be able to use the recycler view we need a couple of things, and they are:
+* A way to parse data that we are going to show(Movie data class),
+* An adapter that takes the parsed data and binds it to a view holder,
+* A view holder.
+* */
 private const val TAG = "MovieAdapter"
 class MovieAdapter(private val context: Context, private val movies: List<Movie>):
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+        // Getting the child views from the parent view(parent view here is the item_movie)
         private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
         private val tvOverview = itemView.findViewById<TextView>(R.id.tvOverview)
         private val ivPoster = itemView.findViewById<ImageView>(R.id.ivPoster)
-
+        /* Binding the parsed data to the view holder.
+        *
+        * We will attach the a click listener here, makes sense since this function is the
+        * one responsible for giving the view our code data/logic.
+        * */
         fun bind(movie: Movie){
             tvTitle.text = movie.title
             tvOverview.text = movie.overview

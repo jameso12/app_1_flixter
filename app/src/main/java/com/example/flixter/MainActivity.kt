@@ -20,8 +20,8 @@ class MainActivity : AppCompatActivity() {
     * 1. Define a data model class as the data source.
     * 2. Add the recycler view to the layout.
     * 3. Create a costume row layout XML file to visualize the items
-    * 4.Create an adapter and view holder to render the item
-    * 5.Bind the adapter to the data source to populate the RecyclerView
+    * 4. Create an adapter and view holder to render the item
+    * 5. Bind the adapter to the data source to populate the RecyclerView
     * 6. Bind a layout manager to the recycler view
     * */
 
@@ -33,7 +33,10 @@ class MainActivity : AppCompatActivity() {
         val movieAdapter = MovieAdapter(this,movies)
 
         rvMovies.adapter = movieAdapter
+        // The recycler view needs a layout manager, the layout manager tells the recycler view
+        // how to display the views.
         rvMovies.layoutManager = LinearLayoutManager(this)
+        // Handling network calls
         val client = AsyncHttpClient()
         client.get(NOW_PLAYING_URL, object: JsonHttpResponseHandler(){
             override fun onFailure(
@@ -51,12 +54,18 @@ class MainActivity : AppCompatActivity() {
                 * warning. The reason it is safe to remove the nullable is because this method
                 * will ONLY execute on a successful get request.*/
                try {
+                   // The meaty part but the cleanest part:
+                       // Get the movies json list
                    val movieJasonArray = json.jsonObject.getJSONArray("results")
+                   // Initialize and add all of the movies
                    movies.addAll(Movie.fromJsonArray(movieJasonArray))
+                   /*
+                   * Once the movies have been added, the movies data set has changed.
+                   * We need to notify the adapter of said change so that it re-renders.*/
                    movieAdapter.notifyDataSetChanged()
-                   Log.i(TAG, "Movie list: $movies")
+                   Log.i(TAG, "Movie list: $movies") // We log
                } catch(e:JSONException){
-                   Log.e(TAG,"Encountered exception $e")
+                   Log.e(TAG,"Encountered exception $e") // We log
 
                }
 

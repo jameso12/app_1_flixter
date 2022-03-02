@@ -4,7 +4,9 @@ import org.json.JSONArray
 
 /*This file contains a data class. Why data class? Because kotlin has support for
 * a special type of class class called "data class", this wll make it clear that we
-* are just using this class to bundle up data. */
+* are just using this class to bundle up data.
+* This file's purpose is to parse data(in our case, the json object that we get from
+* the network request)!*/
 data class Movie (
     val movieID: Int,
     private val posterPath: String,
